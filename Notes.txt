@@ -8,3 +8,16 @@ Follow-up: 24 weeks, with assessments at baseline, 4, 12, and 24 weeks
 Primary Outcome: Change in a validated pain score from baseline to week 24
 Secondary Outcomes: Physical function score, walking distance, quality of life, incidence of adverse events, and treatment discontinuation
 Statistical Features to Simulate: Randomization, baseline covariate imbalance by chance, patient adherence, dropout, missing outcome data, adverse events, and varying treatment effect sizes
+
+Steps
+1. Generate Patients
+2. Randomize to treatment or Control
+3. Generate Outcomes
+4. Analyze results
+5. Repeat Trial
+6. Ask more questions and consider things like
+    Does increasing the sample size improve power?
+    What happens if dropout doubles?
+    What if the treatment effect is smaller than expected?
+    How does variance affect statistical significance?
+    What happens if baseline characteristics are imbalanced?
