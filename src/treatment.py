@@ -16,14 +16,72 @@ import random
 # baseline expectations
 drug_score_baseline = round(np.random.normal(30, 9))
 placebo_score_baseline = round(np.random.normal(5, 2))
-adverse_event_baseline = bernoulli.rvs(0.2)
-dropout_baseline = bernoulli.rvs(0.3)
-# adjustments for 
-obesity_adj = round(np.random.normal(-8, 3))
+adverse_event_baseline = 0.2
+dropout_baseline = 0.3
+# adjustments
 elderly_adj = round(np.random.normal(-10, 5))
+random_variation = round(np.random.normal(0, 6))
 
 
 
 # Treatment Function
-def treat(population, adverse_event_prob = adverse_event_baseline, dropout = dropout_baseline):
+def treat(population):
+    # Counting
+    adverse_event_counter = 0
+    dropout_counter = 0
+    treatment_counter = 0
+    placebo_counter = 0
+    high_BMI_counter = 0
+    elderly_counter = 0
+    low_cholesterol_counter = 0
+    for person in population:
+        if person.group == "treatment":
+            treatment_effect = round(np.random.normal(30, 9)) + round(np.random.normal(0, 6))
+            treatment_counter += 1
+            if person.BMI >= 30:
+                # scale effect by obesity level. More obese, treatment works worse
+                treatment_effect -= round(np.random.normal(person.BMI*0.20 , 4))
+                high_BMI_counter += 1
+        else: # placebo group 
+            treatment_effect = round(np.random.normal(5, 2)) + round(np.random.normal(0, 6))
+            placebo_counter += 1
+            if person.BMI >= 30:
+                # scale effect by obesity level. More obese, treatment works worse
+                treatment_effect -= round(np.random.normal(person.BMI*0.20 , 4))
+                high_BMI_counter += 1
+        
+        if person.age >= 80:
+            treatment_effect += round(np.random.normal(-10, 5)) #adj value is already negative
+            elderly_counter += 1
+        
+        # adverse event
+        if person.baselineSBP >= 130 or person.baselineDBP >= 100 or person.age >= 75 or person.smoker:
+            adverse_event = bernoulli.rvs(adverse_event_baseline + 0.15)
+            if adverse_event == 1:
+                adverse_event_counter += 1
+
+        # dropout
+        if person.cholesterol <= 120:
+            dropout = bernoulli.rvs(dropout_baseline + 0.1) 
+            low_cholesterol_counter += 1
+            if dropout == 1:
+                dropout_counter += 1  
+        else: 
+            dropout = bernoulli.rvs(dropout_baseline)
+            if dropout == 1:
+                dropout_counter += 1
     
+        total = person.pain_score - treatment_effect
+        person.treatment_score = total
+
+        print(f"Person {person.id}: dropout?: {dropout}, adverse event?: {adverse_event}, treatment effect: {treatment_effect}. Total: {total}")
+    print(f"Treatments: {treatment_counter}"
+          f"\nPlacebos: {placebo_counter}"
+          f"\nAdverse Events: {adverse_event_counter}"
+          f"\nDropouts: {dropout_counter}"
+          f"\nHigh BMIs: {high_BMI_counter}"
+          f"\nElderly Participants: {elderly_counter}"
+          f"\nLow Cholesterols: {low_cholesterol_counter}")
+    return population
+    
+
