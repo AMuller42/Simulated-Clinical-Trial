@@ -1,0 +1,10 @@
+A Phase III Randomized, Double-Blind, Placebo-Controlled Trial Evaluating the Efficacy of a Novel Oral Therapy for Knee Osteoarthritis
+
+Disease: Knee osteoarthritis
+Intervention: Once-daily oral Drug X
+Control: Matching placebo
+Patients: 300 adults aged 45–80 with moderate knee osteoarthritis
+Follow-up: 24 weeks, with assessments at baseline, 4, 12, and 24 weeks
+Primary Outcome: Change in a validated pain score from baseline to week 24
+Secondary Outcomes: Physical function score, walking distance, quality of life, incidence of adverse events, and treatment discontinuation
+Statistical Features to Simulate: Randomization, baseline covariate imbalance by chance, patient adherence, dropout, missing outcome data, adverse events, and varying treatment effect sizes
