@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.stats import bernoulli
+from scipy.stats import skewnorm
 import random
 
 # set variables
@@ -10,6 +11,7 @@ pop_size = 300
 class Person:
     def __init__(self, person_id):
         self.id = person_id
+        self.pain_score = skewnorm.rvs()
         self.age = round(np.random.normal(60, 10), 3)
         self.sex = bernoulli.rvs(0.5)
         self.BMI = round(np.random.normal(29, 5), 1)
