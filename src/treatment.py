@@ -32,7 +32,7 @@ def treat(population):
     treatment_counter = 0
     placebo_counter = 0
     high_BMI_counter = 0
-    elderly_counter = 0
+    elderly_counter = 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     low_cholesterol_counter = 0
     for person in population:
         if person.group == "treatment":
@@ -59,6 +59,10 @@ def treat(population):
             adverse_event = bernoulli.rvs(adverse_event_baseline + 0.15)
             if adverse_event == 1:
                 adverse_event_counter += 1
+        else:
+            adverse_event = bernoulli.rvs(adverse_event_baseline)
+            if adverse_event == 1:
+                adverse_event_counter += 1
 
         # dropout
         if person.cholesterol <= 120:
@@ -71,17 +75,21 @@ def treat(population):
             if dropout == 1:
                 dropout_counter += 1
     
-        total = person.pain_score - treatment_effect
-        person.treatment_score = total
+        person.final = person.pain_score - treatment_effect
+        person.treatment_score = treatment_effect
+        if treatment_effect > 70:
+            print(f"############################### HIGH SCORE ALERT {person.id}: ")
 
-        print(f"Person {person.id}: dropout?: {dropout}, adverse event?: {adverse_event}, treatment effect: {treatment_effect}. Total: {total}")
+        print(f"Person {person.id}: dropout?: {dropout}, adverse event?: {adverse_event}, treatment effect: {treatment_effect}. Total: {person.final}")
+
+    print("-------------------- Counting Stats ---------------------")
     print(f"Treatments: {treatment_counter}"
-          f"\nPlacebos: {placebo_counter}"
-          f"\nAdverse Events: {adverse_event_counter}"
-          f"\nDropouts: {dropout_counter}"
-          f"\nHigh BMIs: {high_BMI_counter}"
-          f"\nElderly Participants: {elderly_counter}"
-          f"\nLow Cholesterols: {low_cholesterol_counter}")
+    f"\nPlacebos: {placebo_counter}"
+    f"\nAdverse Events: {adverse_event_counter}"
+    f"\nDropouts: {dropout_counter}"
+    f"\nHigh BMIs: {high_BMI_counter}"
+    f"\nElderly Participants: {elderly_counter}"
+    f"\nLow Cholesterols: {low_cholesterol_counter}")
     return population
     
 
