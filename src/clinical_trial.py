@@ -51,7 +51,7 @@ class ClinicalTrial:
                 patient.group = "treatment"
             else:
                 patient.group = "placebo"
-        return population
+        return self.patients
     
     def treat(self):
         # Counting
@@ -123,7 +123,7 @@ class ClinicalTrial:
         f"\nHigh BMIs: {high_BMI_counter}"
         f"\nElderly Participants: {elderly_counter}"
         f"\nLow Cholesterols: {low_cholesterol_counter}")
-        return population
+        return self.patients
 
     def calculate_stats(self):
         avg_treatment = np.mean([patient.treatment_score for patient in self.patients if patient.group == "treatment"])
@@ -154,6 +154,7 @@ class Person:
         while self.pain_score < 51 or self.pain_score > 100:
             self.pain_score = round(skewnorm.rvs(a = -8, loc = 80, scale=15))
 
+        # Baseline Characteristics
         self.age = round(np.random.normal(60, 10))
         self.sex = bernoulli.rvs(0.5)
         self.BMI = round(np.random.normal(29, 5))
@@ -162,17 +163,11 @@ class Person:
         self.baselineSBP = round(np.random.normal(120, 15))
         self.baselineDBP = round(np.random.normal(80, 10))
         self.cholesterol = round(np.random.normal(200, 30))
+
+        # Outcome Measures   
         self.treatment_score = 0
         self.final = 0
 
     def __repr__(self):
         return (f"Person {self.id}: age: {self.age}, sex: {self.sex}, BMI: {self.BMI}, smoker? {self.smoker}, diabetes? {self.diabetes}, baseline SBP: {self.baselineSBP}, baseline DBP: {self.baselineDBP}, cholesterol: {self.cholesterol}")
     
-# create population
-population = [Person(i) for i in range(pop_size)]
-
-#/ test
-"""
-for person in population[:5]:
-    print(person)
-"""

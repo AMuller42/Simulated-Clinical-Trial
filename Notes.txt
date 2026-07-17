@@ -22,8 +22,4 @@ Steps
     How does variance affect statistical significance?
     What happens if baseline characteristics are imbalanced?
 
-For tomorrow:
-I am moving pretty much everything into the ClinicalTrial class. Not sure if any functions should stay outside. 
-Currently working out how to move treat(). Not sure if I should rename population.py to something broader bc it seems like everything will be defined there
-assign.py is useless now
-Still need to clean up main() to make up for functions moving into new class. 
+Sources: clinicaltrials.gov
