@@ -1,14 +1,29 @@
 from population import Person
+from population import ClinicalTrial
 from assign import assign_treatment
 from treatment import treat
 import numpy as np
 
+trial = ClinicalTrial()
+trial.enroll_patients()
+trial.assign_patients()
+trial.treat()
+trial.calculate_stats()
+
+
+
+
+
+
+
+### From before making trial class
+"""
 population = [Person(i) for i in range(300)]
 population = assign_treatment(population, treatment_prob=0.5)
 population = treat(population)
 
 
-avg_treatment = np.mean([person.treatment_score for person in population if person.group == "treatment"])
+avg_treatment = np.mean([person.treatment_score for person in  if person.group == "treatment"])
 avg_placebo = np.mean([person.treatment_score for person in population if person.group == "placebo"])
 max_placebo = 0
 min_placebo = 999
@@ -24,3 +39,4 @@ print(f"Average treatment improvement: {round(avg_treatment)}")
 print(f"Average placebo improvement: {round(avg_placebo)}")
 print(f"Max placebo improvement: {max_placebo}")
 print(f"Min placebo improvement: {min_placebo}")
+"""
